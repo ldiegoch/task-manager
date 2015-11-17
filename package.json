@@ -1,0 +1,33 @@
+{
+  "name": "task-generator",
+  "description": "A Helper that is going to generate the sources and destinations required for minification tasks.",
+  "version": "1.1.1",
+  "homepage": "https://github.com/JamesMGreene/grunt-chmod",
+  "author": {
+    "name": "Luis Diego Cordero H",
+    "email": "ldiegoch@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/aristamd/task-generator.git"
+  },
+  "main": "Gruntfile.js",
+  "engines": {
+    "node": ">= 0.8.0"
+  },
+  "scripts": {
+    "test": "grunt travis --verbose"
+  },
+  "dependencies": {
+    "async": "~1.5.0",
+    "glob": "~6.0.1"
+  },
+  "maintainers": [
+    {
+      "name": "ldiegoch",
+      "email": "ldiegoch@gmail.com"
+    }
+  ],
+  "directories": {},
+  "readme": "ERROR: No README data found!"
+}
