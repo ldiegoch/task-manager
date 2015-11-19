@@ -9,4 +9,7 @@ var manager = new Generator();
 manager.getFiles('./../../src',files);
 console.log(files);*/
 
-manager.test('./../../src');
+//manager.test('src');
+//console.log(manager.test('src'));
+//console.log(manager.getTenants('src/tenants'));
+console.log(manager.getModuleFiles('app','services','src/'));

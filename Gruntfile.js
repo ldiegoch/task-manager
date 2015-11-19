@@ -15,23 +15,30 @@ var glob = require('glob');
 
 module.exports = function(grunt) {
 
-    this.getTenants = function(srcPath,finalCallback){
+    this.getTenants = function(srcPath){
 
         function filter(file){
             return fs.statSync(path.join(srcPath, file)).isDirectory();
         }
 
-        async.waterfall([
-            function(callback){
-                fs.exists(srcPath,function(result){
-                    callback(null,result);
-                })
-            },
-            function(callback){
-                var results = fs.readdirSync(srcPath).filter(filter);
-                finalCallback(null,results);
-            }
-        ], finalCallback);
+        if(fs.existsSync(srcPath)){
+            var results = fs.readdirSync(srcPath).filter(filter);
+            return results;
+        }else{
+            return [];
+        }
+
+        /*async.waterfall([
+         function(callback){
+         fs.exists(srcPath,function(result){
+         callback(null,result);
+         })
+         },
+         function(callback){
+         var results = fs.readdirSync(srcPath).filter(filter);
+         finalCallback(null,results);
+         }
+         ], finalCallback);*/
     };
 
     function getFiles(dir,fileList){
@@ -41,7 +48,6 @@ module.exports = function(grunt) {
         }
         var files = fs.readdirSync(dir);
         for (var i in files) {
-            console.log(files[i]);
             if (!files.hasOwnProperty(i)) continue;
             var name = dir + '/' + files[i];
             if (fs.statSync(name).isDirectory()) {
@@ -52,15 +58,29 @@ module.exports = function(grunt) {
         }
     };
 
-    this.getFiles = getFiles;
-    this.test = function(cwd){
+    this.getModuleFiles = function(module, element, src){
         var options = {
-            'cwd': cwd,
-            'ignore': ['vendor/js/*.js','tenants']
+            'cwd': src + module
         };
-        glob('**/*.js',options,function(err,files){
-            console.log(files);
-        })
+        return glob.sync('js/' + element + '/*.js',options);
+    };
+
+    this.getFiles = getFiles;
+    this.getDeniedFilesForModule = function(files,src,module){
+        var deniedFiles = [];
+        var fileName = null;
+        for (var i in files) {
+            deniedFiles.push('!' + src + module + '/' + files[i]);
+        }
+        return deniedFiles;
+    };
+    this.getTenantFilesForModule = function(files,src,tenant,module){
+        var tenantFiles = [];
+        var fileName = null;
+        for (var i in files) {
+            tenantFiles.push( src + tenant  + '/' + module + '/' + files[i]);
+        }
+        return tenantFiles;
     };
 
 };
