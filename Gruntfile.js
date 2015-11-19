@@ -27,18 +27,6 @@ module.exports = function(grunt) {
         }else{
             return [];
         }
-
-        /*async.waterfall([
-         function(callback){
-         fs.exists(srcPath,function(result){
-         callback(null,result);
-         })
-         },
-         function(callback){
-         var results = fs.readdirSync(srcPath).filter(filter);
-         finalCallback(null,results);
-         }
-         ], finalCallback);*/
     };
 
     function getFiles(dir,fileList){
@@ -69,7 +57,6 @@ module.exports = function(grunt) {
         var options = {
             'cwd': src + module
         };
-        console.log(options);
         return glob.sync('tpl/*.html',options);
     };
 
