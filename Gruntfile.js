@@ -65,6 +65,14 @@ module.exports = function(grunt) {
         return glob.sync('js/' + element + '/*.js',options);
     };
 
+    this.getModuleViews = function(module, src){
+        var options = {
+            'cwd': src + module
+        };
+        console.log(options);
+        return glob.sync('tpl/*.html',options);
+    };
+
     this.getFiles = getFiles;
     this.getDeniedFilesForModule = function(files,src,module){
         var deniedFiles = [];
@@ -82,5 +90,4 @@ module.exports = function(grunt) {
         }
         return tenantFiles;
     };
-
 };
